@@ -83,6 +83,7 @@ class Product {
             red: "bg-red-500",
             blue: "bg-blue-500",
             pink: "bg-pink-500",
+            green:"bg-green-500"
         };
 
         let bgClass = colors[backgroundVal];
