@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+* {
+    box-sizing: border-box;
+}
+
+.modal {
+    background-color: rgba(0, 0, 0, .8);
+    backdrop-filter: blur(5px)
+}
+
+@layer components {
+    .productCard {
+        @apply relative overflow-hidden rounded-lg shadow-lg min-h-[305px];
+    }
+
+    .inputForm {
+        @apply w-full bg-white border border-purple-500 rounded-md h-8 px-2 py-1 text-sm mt-1 outline-none;
+    }
+
+    .modal {
+        @apply py-6 rounded-lg h-max absolute z-200 top-0 left-0 right-0 bottom-0 m-auto lg:w-[50vw] md:w-[70vw] w-[90vw];
+    }
+
+    .modal-body {
+        @apply px-10;
+    }
+
+}
