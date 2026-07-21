@@ -24,4 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function createProduct() {
         ProductClass.create(title, price, image, background);
     }
+
+    ProductClass.loadProducts();
 });
