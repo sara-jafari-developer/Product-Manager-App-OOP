@@ -10,56 +10,56 @@ class Product {
 
     defaultProducts = [
         {
-            id: 1784642103797,
+            id: 1784642103791,
             title: "product 1",
             price: "100",
             image: this.defaultImage,
             background: 'bg-purple-500'
         },
         {
-            id: 1784642214399,
+            id: 1784642214392,
             title: "product 2",
             price: "600",
             image: this.defaultImage2,
             background: 'bg-pink-500'
         },
         {
-            id: 1784642124085,
+            id: 1784642124083,
             title: "product 3",
             price: "200",
             image: this.defaultImage2,
             background: 'bg-blue-500'
         },
         {
-            id: 1784642146643,
+            id: 1784642146645,
             title: "product 4",
             price: "300",
             image: this.defaultImage,
             background: 'bg-green-500'
         },
         {
-            id: 1784642167891,
+            id: 1784642167896,
             title: "product 5",
             price: "400",
             image: this.defaultImage2,
             background: 'bg-yellow-500'
         },
         {
-            id: 1784642189881,
+            id: 1784642189887,
             title: "product 6",
             price: "500",
             image: this.defaultImage,
             background: 'bg-orange-500'
         },
         {
-            id: 1784642231491,
+            id: 1784642231499,
             title: "product 7",
             price: "700",
             image: this.defaultImage,
             background: 'bg-red-500'
         },
         {
-            id: 1784642214399,
+            id: 1784642214396,
             title: "product 8",
             price: "600",
             image: this.defaultImage2,
@@ -114,6 +114,7 @@ class Product {
         this.setProduct(data);
 
         let ProductCard = this.makeProductHTMLCard(data);
+        this.setProductDeleteBtnEventListener();
 
         this.productList.innerHTML = ProductCard + this.productList.innerHTML;
 
@@ -123,7 +124,7 @@ class Product {
 
     makeProductHTMLCard(data) {
         return `<div class="productCard ${data.background}">
-                <svg class="absolute bottom-0 left-0 mb-8" viewBox="0 0 375 283" fill="none"
+                <svg class="absolute bottom-0 left-0 mb-8 z-1" viewBox="0 0 375 283" fill="none"
                     style="transform: scale(1.5); opacity: 0.1;">
                     <rect x="159.52" y="175" width="152" height="152" rx="8" transform="rotate(-45 159.52 175)"
                         fill="white" />
@@ -148,8 +149,9 @@ class Product {
                             class="block bg-white rounded-full text-teal-500 text-xs font-bold px-3 py-2 leading-none flex items-center">$${data.price}</span>
                     </div>
                 </div>
-                <div class='text-center'>
-                    <button class='bg-white w-full py-2'>delete</button>
+
+                <div class='text-center relative z-2'>
+                    <button class="delete-btn text-red-300 font-bold bg-white w-full py-2 hover:cursor-pointer hover:text-red-500" data-id="${data.id}">delete</button>
                 </div>
             </div>`;
     }
@@ -175,6 +177,7 @@ class Product {
 
     loadProducts() {
         this.getProducts();
+        this.productList.innerHTML = "";
 
         if (this.#products.length === 0) {
             this.defaultProducts.forEach(product => {
@@ -186,6 +189,8 @@ class Product {
                 this.productList.innerHTML += this.makeProductHTMLCard(product);
             });
         }
+
+        this.setProductDeleteBtnEventListener();
     }
 
     getBase64(fileInput) {
@@ -205,6 +210,30 @@ class Product {
             reader.readAsDataURL(file);
         });
     }
+
+    deleteProduct(id) {
+        console.log("aaaaaaaaaaaaa");
+
+        this.getProducts();
+        this.#products = this.#products.filter(product => product.id !== id);
+
+        localStorage.setItem("products", JSON.stringify(this.#products));
+
+        this.loadProducts();
+    }
+
+    setProductDeleteBtnEventListener() {
+        this.productList.addEventListener("click", (e) => {
+            const deleteBtn = e.target.matches(".delete-btn") ? e.target : null;
+
+            if (!deleteBtn) return;
+
+            console.log("clicked");
+            const id = Number(deleteBtn.dataset.id);
+            this.deleteProduct(id);
+        });
+    }
+
 }
 
 export default Product;
