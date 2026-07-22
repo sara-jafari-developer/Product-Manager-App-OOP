@@ -21,8 +21,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     create.addEventListener('click', createProduct);
 
-    function createProduct() {
-        ProductClass.create(title, price, image, background);
+    async function createProduct() {
+        let isCreated = await ProductClass.create(title, price, image, background);
+
+        if (isCreated) {
+            title.value = '';
+            price.value = '';
+            image.value = '';
+            background.value = '';
+        }
     }
 
     ProductClass.loadProducts();
