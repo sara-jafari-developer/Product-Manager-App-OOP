@@ -132,12 +132,12 @@ class Product {
                     <rect y="107.48" width="152" height="152" rx="8" transform="rotate(-45 0 107.48)" fill="white" />
                 </svg>
 
-                <div class="relative pt-10 px-10 flex items-center justify-center">
+                <div class="relative pt-10 px-10 flex items-center justify-center min-h-[208px]">
                     <div class="block absolute w-48 h-48 bottom-0 left-0 -mb-24 ml-3"
                         style="background: radial-gradient(black, transparent 60%); transform: rotate3d(0, 0, 1, 20deg) scale3d(1, 0.6, 1); opacity: 0.2;">
                     </div>
 
-                    <img class="relative w-40"
+                    <img class="relative w-full"
                         src="${data.image}"
                         alt="">
                 </div>
