@@ -238,44 +238,17 @@ class Product {
                 confirmButtonText: "Yes, delete it",
                 cancelButtonText: "Cancel"
             }).then((result) => {
-
                 if (result.isConfirmed) {
-
-                    try {
-                        this.deleteProduct(id);
-
-                        Swal.fire({
-                            title: "Deleted!",
-                            text: "The product has been deleted successfully.",
-                            icon: "success",
-                            timer: 1500,
-                            showConfirmButton: false
-                        });
-
-                    } catch (error) {
-
-                        Swal.fire({
-                            title: "Error!",
-                            text: "Something went wrong while deleting the product.",
-                            icon: "error",
-                            confirmButtonText: "OK"
-                        });
-
-                        console.error(error);
-                    }
-
-                } else {
+                    this.deleteProduct(id);
 
                     Swal.fire({
-                        title: "Cancelled",
-                        text: "The product was not deleted.",
-                        icon: "info",
-                        timer: 1200,
+                        title: "Deleted!",
+                        text: "The product has been deleted successfully.",
+                        icon: "success",
+                        timer: 1500,
                         showConfirmButton: false
                     });
-
                 }
-
             });
         });
     }
