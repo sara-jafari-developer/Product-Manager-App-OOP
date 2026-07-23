@@ -145,9 +145,9 @@ class Product {
                 <div class="relative text-white px-6 pb-6 mt-6">
                     <span class="block opacity-75 -mb-1">Outdoor</span>
                     <div class="flex justify-between">
-                        <span class="block font-semibold text-xl">${data.title}</span>
+                        <span class="block font-semibold text-xl truncate">${data.title}</span>
                         <span
-                            class="block bg-white rounded-full text-teal-500 text-xs font-bold px-3 py-2 leading-none flex items-center">$${data.price}</span>
+                            class="truncate block bg-white rounded-full text-teal-500 text-xs font-bold px-3 py-2 leading-none flex items-center">$${data.price}</span>
                     </div>
                 </div>
 
