@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     addProduct.addEventListener('click', () => ProductClass.openForm());
-
+    
     create.addEventListener('click', createProduct);
 
     async function createProduct() {
