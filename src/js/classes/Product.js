@@ -70,6 +70,7 @@ class Product {
     constructor(productList, modal) {
         this.productList = productList;
         this.modal = modal;
+        this.setProductDeleteBtnEventListener();
     }
 
     async create(title, price, image, background) {
@@ -179,7 +180,7 @@ class Product {
         this.getProducts();
         this.productList.innerHTML = "";
 
-        if (this.#products.length === 0) {
+        if (localStorage.getItem("products") === null) {
             this.defaultProducts.forEach(product => {
                 this.setProduct(product);
                 this.productList.innerHTML = this.makeProductHTMLCard(product) + this.productList.innerHTML;
@@ -190,7 +191,6 @@ class Product {
             });
         }
 
-        this.setProductDeleteBtnEventListener();
     }
 
     getBase64(fileInput) {
@@ -212,8 +212,6 @@ class Product {
     }
 
     deleteProduct(id) {
-        console.log("aaaaaaaaaaaaa");
-
         this.getProducts();
         this.#products = this.#products.filter(product => product.id !== id);
 
@@ -228,9 +226,57 @@ class Product {
 
             if (!deleteBtn) return;
 
-            console.log("clicked");
             const id = Number(deleteBtn.dataset.id);
-            this.deleteProduct(id);
+
+            Swal.fire({
+                title: "Are you sure?",
+                text: "This product will be deleted!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Yes, delete it",
+                cancelButtonText: "Cancel"
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+
+                    try {
+                        this.deleteProduct(id);
+
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "The product has been deleted successfully.",
+                            icon: "success",
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
+
+                    } catch (error) {
+
+                        Swal.fire({
+                            title: "Error!",
+                            text: "Something went wrong while deleting the product.",
+                            icon: "error",
+                            confirmButtonText: "OK"
+                        });
+
+                        console.error(error);
+                    }
+
+                } else {
+
+                    Swal.fire({
+                        title: "Cancelled",
+                        text: "The product was not deleted.",
+                        icon: "info",
+                        timer: 1200,
+                        showConfirmButton: false
+                    });
+
+                }
+
+            });
         });
     }
 
